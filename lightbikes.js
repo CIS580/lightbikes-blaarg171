@@ -78,14 +78,28 @@ window.onkeyup = function (event) {
     }
 }
 
-function loop() {
+function loop(timestamp) { // timestamp = deltaTime 
     if (input.up) y -= speed;
     if (input.down) y += speed;
     if (input.left) x -= speed;
     if (input.right) x += speed;
+	
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	
+	for(var i = 0; i < 1000; i++) {
+		context.fillStyle = "blue";
+		context.fillRect(i * 20 % 1000, i * 20 % 1000, 10, 10);
+	}
+	
     context.fillStyle = "cyan";
     context.fillRect(x, y, 5, 5);
 
-    setTimeout(loop, timescale);
+    //setTimeout(loop, timescale);
+	
+	requestAnimationFrame(loop); // syncs with refresh rate
 }
-loop();
+//loop();
+
+//var intervalID = setInterval(loop, timescale); // doesnt sync with monitor refresh rate
+
+requestAnimationFrame(loop);
